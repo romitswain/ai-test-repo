@@ -1,0 +1,58 @@
+<div class="registration-container">
+  <h2>Registration Form</h2>
+  <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="name">Full Name</label>
+      <input type="text" id="name" formControlName="name" placeholder="Enter your full name">
+      <div *ngIf="registrationForm.get('name')?.invalid && registrationForm.get('name')?.touched" class="error-message">
+        Name is required
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" id="email" formControlName="email" placeholder="Enter your email">
+      <div *ngIf="registrationForm.get('email')?.invalid && registrationForm.get('email')?.touched" class="error-message">
+        <span *ngIf="registrationForm.get('email')?.errors?.['required']">Email is required</span>
+        <span *ngIf="registrationForm.get('email')?.errors?.['email']">Please enter a valid email</span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" id="password" formControlName="password" placeholder="Enter your password">
+      <div *ngIf="registrationForm.get('password')?.invalid && registrationForm.get('password')?.touched" class="error-message">
+        <span *ngIf="registrationForm.get('password')?.errors?.['required']">Password is required</span>
+        <span *ngIf="registrationForm.get('password')?.errors?.['minlength']">Password must be at least 6 characters</span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="dob">Date of Birth</label>
+      <input type="date" id="dob" formControlName="dob">
+      <div *ngIf="registrationForm.get('dob')?.invalid && registrationForm.get('dob')?.touched" class="error-message">
+        Date of birth is required
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Gender</label>
+      <div class="radio-group">
+        <label>
+          <input type="radio" formControlName="gender" value="male"> Male
+        </label>
+        <label>
+          <input type="radio" formControlName="gender" value="female"> Female
+        </label>
+        <label>
+          <input type="radio" formControlName="gender" value="other"> Other
+        </label>
+      </div>
+      <div *ngIf="registrationForm.get('gender')?.invalid && registrationForm.get('gender')?.touched" class="error-message">
+        Please select your gender
+      </div>
+    </div>
+
+    <button type="submit" [disabled]="registrationForm.invalid">Register</button>
+  </form>
+</div>

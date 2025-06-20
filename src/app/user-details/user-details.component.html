@@ -1,0 +1,47 @@
+<div class="user-details-container">
+  <h1>User Profile</h1>
+  
+  <div class="user-card">
+    <div class="user-avatar">
+      <div class="avatar-placeholder">{{ user.name.charAt(0) }}</div>
+    </div>
+    
+    <div class="user-info">
+      <h2>{{ user.name }}</h2>
+      <p class="user-role">{{ user.role }}</p>
+      
+      <div class="info-section">
+        <h3>Contact Information</h3>
+        <div class="info-item">
+          <span class="label">Email:</span>
+          <span class="value">{{ user.email }}</span>
+        </div>
+        <div class="info-item">
+          <span class="label">Phone:</span>
+          <span class="value">{{ user.phone }}</span>
+        </div>
+        <div class="info-item">
+          <span class="label">Address:</span>
+          <span class="value">{{ user.address }}</span>
+        </div>
+      </div>
+      
+      <div class="info-section">
+        <h3>Account Details</h3>
+        <div class="info-item">
+          <span class="label">Join Date:</span>
+          <span class="value">{{ user.joinDate }}</span>
+        </div>
+        <div class="info-item">
+          <span class="label">Last Login:</span>
+          <span class="value">{{ user.lastLogin }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="actions">
+    <button class="btn primary">Edit Profile</button>
+    <button class="btn secondary">Change Password</button>
+  </div>
+</div>

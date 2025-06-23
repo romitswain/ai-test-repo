@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router, RouterModule } from '@angular/router';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -18,28 +19,39 @@ export class LoginComponent implements OnInit {
     private router: Router
   ) {
     this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required]],
+      username: ['', Validators.required],
+      password: ['', Validators.required],
       rememberMe: [false]
     });
   }
 
   ngOnInit(): void {
+    // Check if there's a saved username in localStorage
+    const savedUsername = localStorage.getItem('rememberedUsername');
+    if (savedUsername) {
+      this.loginForm.patchValue({
+        username: savedUsername,
+        rememberMe: true
+      });
+    }
   }
 
   onSubmit(): void {
     if (this.loginForm.valid) {
-      // In a real application, you would call an authentication service here
-      console.log('Login form submitted:', this.loginForm.value);
+      const { username, password, rememberMe } = this.loginForm.value;
       
-      // For demo purposes, navigate to user-details page on successful login
+      // Handle remember me functionality
+      if (rememberMe) {
+        localStorage.setItem('rememberedUsername', username);
+      } else {
+        localStorage.removeItem('rememberedUsername');
+      }
+
+      // In a real app, you would call an authentication service here
+      console.log('Login attempt:', { username, password });
+      
+      // For demo purposes, navigate to user details page
       this.router.navigate(['/user-details']);
-    } else {
-      // Mark all fields as touched to trigger validation messages
-      Object.keys(this.loginForm.controls).forEach(field => {
-        const control = this.loginForm.get(field);
-        control?.markAsTouched({ onlySelf: true });
-      });
     }
   }
 }

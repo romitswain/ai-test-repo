@@ -3,17 +3,17 @@
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  padding: 2rem;
   background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  padding: 1rem;
 }
 
 .login-card {
   width: 100%;
   max-width: 400px;
-  padding: 2rem;
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
 }
 
 h2 {
@@ -33,34 +33,35 @@ label {
   color: var(--gray-700);
 }
 
-input[type="email"],
+input[type="text"],
 input[type="password"] {
   width: 100%;
   padding: 0.75rem;
   border: 1px solid #ccc;
   border-radius: 4px;
   font-size: 1rem;
+  transition: border-color 0.2s;
 }
 
-input[type="email"]:focus,
+input[type="text"]:focus,
 input[type="password"]:focus {
-  outline: none;
   border-color: var(--bright-blue);
+  outline: none;
   box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+}
+
+.form-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
 }
 
 .remember-me {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.remember-me label {
-  display: flex;
   align-items: center;
   gap: 0.5rem;
   cursor: pointer;
-  margin-bottom: 0;
 }
 
 .forgot-password {

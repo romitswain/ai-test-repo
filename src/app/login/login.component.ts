@@ -26,32 +26,22 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // Check if there's a saved username in localStorage
-    const savedUsername = localStorage.getItem('rememberedUsername');
-    if (savedUsername) {
-      this.loginForm.patchValue({
-        username: savedUsername,
-        rememberMe: true
-      });
-    }
+    // Check if user is already logged in
   }
 
   onSubmit(): void {
     if (this.loginForm.valid) {
-      const { username, password, rememberMe } = this.loginForm.value;
+      // In a real application, you would send a request to your authentication service
+      console.log('Login form submitted:', this.loginForm.value);
       
-      // Handle remember me functionality
-      if (rememberMe) {
-        localStorage.setItem('rememberedUsername', username);
-      } else {
-        localStorage.removeItem('rememberedUsername');
-      }
-
-      // In a real app, you would call an authentication service here
-      console.log('Login attempt:', { username, password });
-      
-      // For demo purposes, navigate to user details page
+      // For demo purposes, navigate to user details page after login
       this.router.navigate(['/user-details']);
+    } else {
+      // Mark all fields as touched to trigger validation messages
+      Object.keys(this.loginForm.controls).forEach(field => {
+        const control = this.loginForm.get(field);
+        control?.markAsTouched({ onlySelf: true });
+      });
     }
   }
 }

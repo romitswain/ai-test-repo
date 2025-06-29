@@ -1,17 +1,18 @@
-/* Add global styles to this file */
-
+/* Global CSS variables for blue and green color scheme */
 :root {
-  /* Blue and green color scheme */
-  --primary-blue: #0a5c7e;
-  --primary-green: #2ecc71;
-  --secondary-blue: #084c68;
-  --secondary-green: #27ae60;
-  --light-blue: #e3f2fd;
-  --light-green: #e8f5e9;
-  --gray-100: #f8f9fa;
-  --gray-400: #e0e0e0;
-  --gray-700: #495057;
-  --gray-900: #212529;
+  --primary-blue: #1976d2;
+  --dark-blue: #0d47a1;
+  --light-blue: #bbdefb;
+  
+  --primary-green: #2e7d32;
+  --dark-green: #1b5e20;
+  --light-green: #c8e6c9;
+  
+  --gray-900: #212121;
+  --gray-700: #616161;
+  --gray-400: #bdbdbd;
+  
+  --blue-to-green-gradient: linear-gradient(135deg, #1976d2 0%, #2e7d32 100%);
 }
 
 body {
@@ -22,7 +23,15 @@ body {
   color: var(--gray-900);
 }
 
-/* Replace the red-to-pink-to-purple gradient with blue-to-green */
-.blue-to-green-gradient {
-  background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-green) 100%);
+/* Override any previous gradient variables */
+.avatar-placeholder {
+  background: var(--blue-to-green-gradient) !important;
+}
+
+button.primary {
+  background: var(--primary-blue) !important;
+}
+
+button.secondary {
+  background: var(--primary-green) !important;
 }

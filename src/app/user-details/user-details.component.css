@@ -5,7 +5,7 @@
 }
 
 h1 {
-  color: #0a5c7e;
+  color: #0d47a1;
   margin-bottom: 2rem;
   text-align: center;
 }
@@ -27,7 +27,7 @@ h1 {
   width: 100px;
   height: 100px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #0a5c7e 0%, #2ecc71 100%);
+  background: linear-gradient(135deg, #1976d2 0%, #2e7d32 100%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -43,11 +43,11 @@ h1 {
 .user-info h2 {
   margin: 0;
   font-size: 1.8rem;
-  color: #0a5c7e;
+  color: #0d47a1;
 }
 
 .user-role {
-  color: #2ecc71;
+  color: #2e7d32;
   margin-top: 0.25rem;
   font-style: italic;
 }
@@ -59,7 +59,7 @@ h1 {
 }
 
 .info-section h3 {
-  color: #0a5c7e;
+  color: #0d47a1;
   margin-bottom: 1rem;
   font-size: 1.2rem;
 }
@@ -72,12 +72,12 @@ h1 {
 .label {
   width: 120px;
   font-weight: 500;
-  color: #0a5c7e;
+  color: #2e7d32;
 }
 
 .value {
   flex: 1;
-  color: #333;
+  color: #212121;
 }
 
 .actions {
@@ -96,21 +96,21 @@ h1 {
 }
 
 .primary {
-  background: #0a5c7e;
+  background: #1976d2;
   color: white;
 }
 
 .primary:hover {
-  background: #084c68;
+  background: #0d47a1;
 }
 
 .secondary {
-  background: #2ecc71;
+  background: #2e7d32;
   color: white;
 }
 
 .secondary:hover {
-  background: #27ae60;
+  background: #1b5e20;
 }
 
 @media (max-width: 768px) {

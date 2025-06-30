@@ -1,0 +1,66 @@
+<div class="lane-report-container">
+  <div class="report-header">
+    <h2>Lane Report</h2>
+    <div class="report-actions">
+      <button class="action-btn" (click)="downloadCSV()">
+        <i class="fas fa-download"></i> Download CSV
+      </button>
+      <button class="action-btn" (click)="printReport()">
+        <i class="fas fa-print"></i> Print Report
+      </button>
+    </div>
+  </div>
+
+  <div class="report-table-container">
+    <table class="report-table">
+      <thead>
+        <tr>
+          <th>Lane Number</th>
+          <th>Equipment</th>
+          <th>Origin</th>
+          <th>Destination</th>
+          <th>Days</th>
+          <th>Pickup Window</th>
+          <th>Delivery Window</th>
+          <th>Weekly Frequency</th>
+          <th>Min Monthly Frequency</th>
+          <th>Max Weight (lbs)</th>
+          <th>Origin Radius</th>
+          <th>Destination Radius</th>
+          <th>Special Equipment</th>
+          <th>Dispatch Name</th>
+          <th>Dispatch Email</th>
+          <th>Min Auto Accept</th>
+          <th>Seasonality</th>
+          <th>Holiday Exclusions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let lane of lanes">
+          <td>{{ lane.laneNumber }}</td>
+          <td>{{ lane.equipment }}</td>
+          <td>{{ lane.origin.city }}, {{ lane.origin.state }}, {{ lane.origin.zip }}</td>
+          <td>{{ lane.destination.city }}, {{ lane.destination.state }}, {{ lane.destination.zip }}</td>
+          <td>{{ formatDays(lane.days) }}</td>
+          <td>{{ lane.pickupWindow.start }} - {{ lane.pickupwindow.end }}</td>
+          <td>{{ lane.deliverywindow.start }} - {{ lane.deliverywindow.end }}</td>
+          <td>{{ lane.weeklyFrequency }}</td>
+          <td>{{ lane.minMonthlyFrequency }}</td>
+          <td>{{ lane.maxWeight }}</td>
+          <td>{{ lane.originRadius }}</td>
+          <td>{{ lane.destinationRadius }}</td>
+          <td>{{ formatSpecialEquipment(lane.specialEquipment) }}</td>
+          <td>{{ lane.dispatchName }}</td>
+          <td>{{ lane.dispatchEmail }}</td>
+          <td>{{ lane.minAutoAccept }}</td>
+          <td>{{ formatSeasonality(lane.seasonality) }}</td>
+          <td>{{ formatHolidayExclusions(lane.holidayExclusions) }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="lanes.length === 0" class="no-data">
+    <p>No lanes available to display</p>
+  </div>
+</div>

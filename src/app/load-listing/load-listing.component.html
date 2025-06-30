@@ -1,0 +1,80 @@
+<div class="load-listing-container">
+  <div class="header">
+    <h2>Your Listed Loads</h2>
+    <button class="download-btn" (click)="downloadCSV()" [disabled]="isLoading || loads.length === 0">
+      <span *ngIf="!isLoading">Download CSV</span>
+      <span *ngIf="isLoading">Processing...</span>
+    </button>
+  </div>
+
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+
+  <div *ngIf="isLoading" class="loading">
+    Loading loads...
+  </div>
+
+  <div *ngIf="!isLoading && loads.length === 0" class="no-loads">
+    No loads are currently listed.
+  </div>
+
+  <div *ngIf="loads.length > 0" class="loads-table-container">
+    <table class="loads-table">
+      <thead>
+        <tr>
+          <th>PFNZ Number</th>
+          <th>Load ID</th>
+          <th>Equipment</th>
+          <th>Origin</th>
+          <th>Destination</th>
+          <th>Pickup Date</th>
+          <th>Weight</th>
+          <th>Commodity</th>
+          <th>Offered Price</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let load of loads">
+          <td>{{ load.pfnzNumber }}</td>
+          <td>{{ load.loadId }}</td>
+          <td>{{ load.equipment }}</td>
+          <td>{{ load.origin }}</td>
+          <td>{{ load.destination }}</td>
+          <td>{{ load.pickupDate | date:'MM/dd/yyyy' }}</td>
+          <td>{{ load.weight }} lbs</td>
+          <td>{{ load.commodity }}</td>
+          <td>${{ load.offeredPrice }}</td>
+          <td>
+            <button class="action-btn view-btn">View</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="csv-info">
+    <h3>CSV Export Information</h3>
+    <p>The downloaded CSV will include the following fields:</p>
+    <ul>
+      <li>PFNZ Number</li>
+      <li>Load ID Number</li>
+      <li>Equipment</li>
+      <li>Origin (City, State, Zip)</li>
+      <li>Destination (City, State, Zip)</li>
+      <li>Pickup Date</li>
+      <li>Shipment Weight</li>
+      <li>Commodity Shipped</li>
+      <li>Number of Times a Year</li>
+      <li>Submitted Date & Time</li>
+      <li>Offered Price</li>
+      <li>Special Instructions</li>
+      <li>Pickup Window (Start, End)</li>
+      <li>Delivery Window (Start, End)</li>
+      <li>Drop & Hook</li>
+      <li>Special Equipment</li>
+      <li>Response Deadline</li>
+    </ul>
+  </div>
+</div>

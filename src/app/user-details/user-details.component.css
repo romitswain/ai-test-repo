@@ -5,7 +5,7 @@
 }
 
 h1 {
-  color: var(--gray-900);
+  color: #2e7d32;
   margin-bottom: 2rem;
   text-align: center;
 }
@@ -17,6 +17,7 @@ h1 {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   padding: 2rem;
   margin-bottom: 2rem;
+  border: 1px solid #a5d6a7;
 }
 
 .user-avatar {
@@ -27,7 +28,7 @@ h1 {
   width: 100px;
   height: 100px;
   border-radius: 50%;
-  background: var(--red-to-pink-to-purple-horizontal-gradient);
+  background: linear-gradient(135deg, #4caf50 0%, #ffeb3b 100%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -43,23 +44,23 @@ h1 {
 .user-info h2 {
   margin: 0;
   font-size: 1.8rem;
-  color: var(--gray-900);
+  color: #2e7d32;
 }
 
 .user-role {
-  color: var(--gray-700);
+  color: #558b2f;
   margin-top: 0.25rem;
   font-style: italic;
 }
 
 .info-section {
   margin-top: 1.5rem;
-  border-top: 1px solid var(--gray-400);
+  border-top: 1px solid #c5e1a5;
   padding-top: 1rem;
 }
 
 .info-section h3 {
-  color: var(--gray-900);
+  color: #2e7d32;
   margin-bottom: 1rem;
   font-size: 1.2rem;
 }
@@ -72,12 +73,12 @@ h1 {
 .label {
   width: 120px;
   font-weight: 500;
-  color: var(--gray-700);
+  color: #558b2f;
 }
 
 .value {
   flex: 1;
-  color: var(--gray-900);
+  color: #33691e;
 }
 
 .actions {
@@ -96,21 +97,21 @@ h1 {
 }
 
 .primary {
-  background: var(--bright-blue);
+  background: #4caf50;
   color: white;
 }
 
 .primary:hover {
-  background: oklch(45% 0.274 263.83);
+  background: #388e3c;
 }
 
 .secondary {
-  background: var(--gray-400);
-  color: var(--gray-900);
+  background: #ffeb3b;
+  color: #33691e;
 }
 
 .secondary:hover {
-  background: oklch(65% 0.015 304.04);
+  background: #fdd835;
 }
 
 @media (max-width: 768px) {

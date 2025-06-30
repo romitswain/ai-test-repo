@@ -1,58 +1,225 @@
 <div class="registration-container">
-  <h2>Registration Form</h2>
-  <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
-    <div class="form-group">
-      <label for="name">Full Name</label>
-      <input type="text" id="name" formControlName="name" placeholder="Enter your full name">
-      <div *ngIf="registrationForm.get('name')?.invalid && registrationForm.get('name')?.touched" class="error-message">
-        Name is required
+  <h1>Truckload Buyer Registration</h1>
+  
+  <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()" class="buyer-registration-form">
+    <!-- Business Information Section -->
+    <div class="form-section">
+      <h2>Business Information</h2>
+      
+      <div class="form-group">
+        <label for="businessName">Buyer Business Name <span class="required">*</span></label>
+        <input type="text" id="businessName" formControlName="businessName" placeholder="Enter business name">
+        <div *ngIf="registrationForm.get('businessName')?.invalid && registrationForm.get('businessName')?.touched" class="error-message">
+          Business name is required
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="mcNumber">Buyer Motor Carrier (MC) Number</label>
+        <input type="text" id="mcNumber" formControlName="mcNumber" placeholder="Enter MC number">
+      </div>
+
+      <div class="form-group">
+        <label for="businessWebsite">Business Main Website <span class="required">*</span></label>
+        <input type="text" id="businessWebsite" formControlName="businessWebsite" placeholder="Enter website URL">
+        <div *ngIf="registrationForm.get('businessWebsite')?.invalid && registrationForm.get('businessWebsite')?.touched" class="error-message">
+          <span *ngIf="registrationForm.get('businessWebsite')?.errors?.['required']">Business website is required</span>
+          <span *ngIf="registrationForm.get('businessWebsite')?.errors?.['invalidUrl']">Please enter a valid URL</span>
+        </div>
+      </div>
+
+      <div class="form-group agreement-section">
+        <label>User Agreement <span class="required">*</span></label>
+        <div class="agreement-actions">
+          <button type="button" class="btn secondary" (click)="downloadAgreement()">Download Agreement</button>
+          <button type="button" class="btn primary" (click)="openSignaturePopup()">Click to Sign</button>
+        </div>
+        <div *ngIf="signatureComplete" class="signature-status success">Agreement signed successfully</div>
+        <div *ngIf="registrationForm.get('userAgreement')?.invalid && registrationForm.get('userAgreement')?.touched" class="error-message">
+          You must sign the user agreement to continue
+        </div>
       </div>
     </div>
 
-    <div class="form-group">
-      <label for="email">Email</label>
-      <input type="email" id="email" formControlName="email" placeholder="Enter your email">
-      <div *ngIf="registrationForm.get('email')?.invalid && registrationForm.get('email')?.touched" class="error-message">
-        <span *ngIf="registrationForm.get('email')?.errors?.['required']">Email is required</span>
-        <span *ngIf="registrationForm.get('email')?.errors?.['email']">Please enter a valid email</span>
+    <!-- Administrator Information Section -->
+    <div class="form-section">
+      <h2>Administrator Information</h2>
+      <p class="section-note">Admin is the primary contact person of the buyer</p>
+      
+      <div class="form-group">
+        <label for="firstName">Your First Name <span class="required">*</span></label>
+        <input type="text" id="firstName" formControlName="firstName" placeholder="Enter first name">
+        <div *ngIf="registrationForm.get('firstName')?.invalid && registrationForm.get('firstName')?.touched" class="error-message">
+          First name is required
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="lastName">Your Last Name <span class="required">*</span></label>
+        <input type="text" id="lastName" formControlName="lastName" placeholder="Enter last name">
+        <div *ngIf="registrationForm.get('lastName')?.invalid && registrationForm.get('lastName')?.touched" class="error-message">
+          Last name is required
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="phone">Phone <span class="required">*</span></label>
+        <input type="tel" id="phone" formControlName="phone" placeholder="Enter phone number (10 digits)">
+        <div *ngIf="registrationForm.get('phone')?.invalid && registrationForm.get('phone')?.touched" class="error-message">
+          Please enter a valid 10-digit phone number
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email <span class="required">*</span></label>
+        <input type="email" id="email" formControlName="email" placeholder="Enter email address">
+        <div *ngIf="registrationForm.get('email')?.invalid && registrationForm.get('email')?.touched" class="error-message">
+          <span *ngIf="registrationForm.get('email')?.errors?.['required']">Email is required</span>
+          <span *ngIf="registrationForm.get('email')?.errors?.['email']">Please enter a valid email</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="confirmEmail">Confirm Email <span class="required">*</span></label>
+        <input type="email" id="confirmEmail" formControlName="confirmEmail" placeholder="Confirm email address">
+        <div *ngIf="(registrationForm.get('confirmEmail')?.touched || registrationForm.get('email')?.touched) && registrationForm.errors?.['emailMismatch']" class="error-message">
+          Emails do not match
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Initial Password <span class="required">*</span></label>
+        <input type="password" id="password" formControlName="password" placeholder="Enter password">
+        <div *ngIf="registrationForm.get('password')?.invalid && registrationForm.get('password')?.touched" class="error-message">
+          <span *ngIf="registrationForm.get('password')?.errors?.['required']">Password is required</span>
+          <span *ngIf="registrationForm.get('password')?.errors?.['invalidPassword']">Password must be at least 6 characters with 2 unique characters, a number and a letter</span>
+        </div>
       </div>
     </div>
 
-    <div class="form-group">
-      <label for="password">Password</label>
-      <input type="password" id="password" formControlName="password" placeholder="Enter your password">
-      <div *ngIf="registrationForm.get('password')?.invalid && registrationForm.get('password')?.touched" class="error-message">
-        <span *ngIf="registrationForm.get('password')?.errors?.['required']">Password is required</span>
-        <span *ngIf="registrationForm.get('password')?.errors?.['minlength']">Password must be at least 6 characters</span>
+    <!-- Credit Card Information Section -->
+    <div class="form-section">
+      <h2>Credit Card Information</h2>
+      <p class="section-note">Credit card information will be validated and stored securely. None of the credit card details will be stored within the application.</p>
+      
+      <div class="form-group">
+        <label for="cardNumber">Card Number <span class="required">*</span></label>
+        <input type="text" id="cardNumber" formControlName="cardNumber" placeholder="Enter 16-digit card number">
+        <div *ngIf="registrationForm.get('cardNumber')?.invalid && registrationForm.get('cardNumber')?.touched" class="error-message">
+          Please enter a valid 16-digit card number
+        </div>
       </div>
-    </div>
 
-    <div class="form-group">
-      <label for="dob">Date of Birth</label>
-      <input type="date" id="dob" formControlName="dob">
-      <div *ngIf="registrationForm.get('dob')?.invalid && registrationForm.get('dob')?.touched" class="error-message">
-        Date of birth is required
+      <div class="form-group">
+        <label for="expirationDate">Expiration Date <span class="required">*</span></label>
+        <input type="text" id="expirationDate" formControlName="expirationDate" placeholder="MM/YY">
+        <div *ngIf="registrationForm.get('expirationDate')?.invalid && registrationForm.get('expirationDate')?.touched" class="error-message">
+          <span *ngIf="registrationForm.get('expirationDate')?.errors?.['invalidFormat']">Please use MM/YY format</span>
+          <span *ngIf="registrationForm.get('expirationDate')?.errors?.['invalidMonth']">Invalid month</span>
+          <span *ngIf="registrationForm.get('expirationDate')?.errors?.['expired']">Card has expired</span>
+        </div>
       </div>
-    </div>
 
-    <div class="form-group">
-      <label>Gender</label>
-      <div class="radio-group">
+      <div class="form-group">
+        <label for="zipCode">Zip <span class="required">*</span></label>
+        <input type="text" id="zipCode" formControlName="zipCode" placeholder="Enter 5-digit zip code">
+        <div *ngIf="registrationForm.get('zipCode')?.invalid && registrationForm.get('zipCode')?.touched" class="error-message">
+          Please enter a valid 5-digit zip code
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="cvv">CVV <span class="required">*</span></label>
+        <input type="text" id="cvv" formControlName="cvv" placeholder="Enter 3 or 4-digit CVV">
+        <div *ngIf="registrationForm.get('cvv')?.invalid && registrationForm.get('cvv')?.touched" class="error-message">
+          Please enter a valid CVV
+        </div>
+      </div>
+
+      <div class="form-group checkbox-group">
         <label>
-          <input type="radio" formControlName="gender" value="male"> Male
+          <input type="checkbox" formControlName="useCardForMatchingFees">
+          Charge this credit card for the PFNZ Matching Fees?
         </label>
-        <label>
-          <input type="radio" formControlName="gender" value="female"> Female
-        </label>
-        <label>
-          <input type="radio" formControlName="gender" value="other"> Other
-        </label>
-      </div>
-      <div *ngIf="registrationForm.get('gender')?.invalid && registrationForm.get('gender')?.touched" class="error-message">
-        Please select your gender
+        <p class="info-text">
+          There are 2 types of fees:<br>
+          1. Access Fee - $500 per Month<br>
+          2. Matching Fee - 2% of the cost of the load when a positive match is generated
+        </p>
       </div>
     </div>
 
-    <button type="submit" [disabled]="registrationForm.invalid">Register</button>
+    <!-- Additional Information Section -->
+    <div class="form-section">
+      <h2>Additional Information</h2>
+      
+      <div class="form-group">
+        <label for="truckloadTms">Truckload TMS <span class="required">*</span></label>
+        <input type="text" id="truckloadTms" formControlName="truckloadTms" placeholder="Enter TMS name">
+        <div *ngIf="registrationForm.get('truckloadTms')?.invalid && registrationForm.get('truckloadTms')?.touched" class="error-message">
+          TMS name is required
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="teamSize">Approximate Team Size <span class="required">*</span></label>
+        <input type="number" id="teamSize" formControlName="teamSize" min="0">
+        <div *ngIf="registrationForm.get('teamSize')?.invalid && registrationForm.get('teamSize')?.touched" class="error-message">
+          Team size is required
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="establishedYear">Year Firm was Established <span class="required">*</span></label>
+        <input type="number" id="establishedYear" formControlName="establishedYear" min="1900" [max]="new Date().getFullYear()">
+        <div *ngIf="registrationForm.get('establishedYear')?.invalid && registrationForm.get('establishedYear')?.touched" class="error-message">
+          Please enter a valid year
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="paymentTerms">Expected Payment Terms</label>
+        <input type="text" id="paymentTerms" formControlName="paymentTerms" placeholder="Net 30">
+      </div>
+
+      <div class="form-group">
+        <label for="spotDiscount">Default Spot Discount (%)</label>
+        <input type="number" id="spotDiscount" formControlName="spotDiscount" min="0" max="40">
+        <div *ngIf="registrationForm.get('spotDiscount')?.errors?.['exceedsMaximum']" class="error-message">
+          The entered default discount value is so low, PFNZ is worried we may lose private fleets, please enter a less controversial value
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="repetitiveDiscount">Default Repetitive Discount (%)</label>
+        <input type="number" id="repetitiveDiscount" formControlName="repetitiveDiscount" min="0" max="60">
+        <div *ngIf="registrationForm.get('repetitiveDiscount')?.errors?.['exceedsMaximum']" class="error-message">
+          The entered default discount value is so low, PFNZ is worried we may lose private fleets, please enter a less controversial value
+        </div>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn primary">Register</button>
+    </div>
   </form>
+</div>
+
+<!-- Signature Popup -->
+<div class="signature-popup" *ngIf="showSignaturePopup">
+  <div class="signature-popup-content">
+    <h2>Sign User Agreement</h2>
+    <div class="agreement-content">
+      <p>This is the user agreement content. (1-year tail on carriers' intro to Buyer via PFNZ) heavy circumvent penalty.</p>
+      <!-- Agreement content would go here -->
+    </div>
+    <div class="signature-pad">
+      <!-- Signature pad would be implemented here -->
+      <div class="signature-placeholder">Sign here</div>
+    </div>
+    <div class="signature-actions">
+      <button type="button" class="btn secondary" (click)="closeSignaturePopup()">Cancel</button>
+      <button type="button" class="btn primary" (click)="completeSignature('signature-data')">Apply Signature</button>
+    </div>
+  </div>
 </div>

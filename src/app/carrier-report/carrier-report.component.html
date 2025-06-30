@@ -1,0 +1,135 @@
+<div class="carrier-report-container">
+  <h1>Carrier Report</h1>
+  
+  <div class="filters-section">
+    <div class="filter-group">
+      <label for="timeFrame">Select Time Frame</label>
+      <div class="select-container">
+        <select id="timeFrame" [(ngModel)]="selectedTimeFrame" (change)="onTimeFrameChange()">
+          <option value="today">Today</option>
+          <option value="yesterday">Yesterday</option>
+          <option value="thisWeekToDate">This Week-to-Date</option>
+          <option value="thisMonthToDate">This Month-to-Date</option>
+          <option value="thisQuarterToDate">This Quarter-to-Date</option>
+          <option value="thisYear">This Year</option>
+          <option value="thisYearToLastMonth">This Year-to-Last Month</option>
+          <option value="lastWeek">Last Week</option>
+          <option value="lastMonth">Last Month</option>
+          <option value="lastQuarter">Last Quarter</option>
+          <option value="lastYear">Last Year</option>
+          <option value="since30DaysAgo">Since 30 Days Ago</option>
+          <option value="since60DaysAgo">Since 60 Days Ago</option>
+          <option value="since90DaysAgo">Since 90 Days Ago</option>
+          <option value="custom">Custom</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="custom-date-range" *ngIf="selectedTimeFrame === 'custom'">
+      <div class="date-picker">
+        <label for="startDate">Start Date</label>
+        <div class="date-input-container">
+          <input type="date" id="startDate" [(ngModel)]="startDate">
+          <span class="calendar-icon">📅</span>
+        </div>
+      </div>
+      <div class="date-picker">
+        <label for="endDate">End Date</label>
+        <div class="date-input-container">
+          <input type="date" id="endDate" [(ngModel)]="endDate">
+          <span class="calendar-icon">📅</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="filter-group">
+      <label for="region">Select Region</label>
+      <div class="select-container">
+        <select id="region" [(ngModel)]="selectedRegion" (change)="onRegionChange()">
+          <option value="all">All</option>
+          <option *ngFor="let region of availableRegions" [value]="region">{{ region }}</option>
+          <option *ngIf="hasUnlabeledRegions" value="other">Other</option>
+        </select>
+      </div>
+    </div>
+    
+    <button class="generate-btn" (click)="generateReport()">Generate Report</button>
+  </div>
+
+  <div class="report-results" *ngIf="reportGenerated">
+    <div class="report-header">
+      <h2>Report Results</h2>
+      <div class="report-meta">
+        <p><strong>Activity Period:</strong> {{ formattedDateRange }}</p>
+        <p><strong>Region:</strong> {{ displayRegion }}</p>
+      </div>
+    </div>
+
+    <div class="metrics-cards">
+      <div class="metric-card">
+        <div class="metric-value">{{ metrics.loadsOffered }}</div>
+        <div class="metric-label">Loads Offered</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">{{ metrics.loadsOpened }}</div>
+        <div class="metric-label">Loads Opened</div>
+        <div class="metric-percentage">{{ metrics.loadsOpenedPercentage }}% of offers</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">{{ metrics.loadsAcceptedOrCountered }}</div>
+        <div class="metric-label">Loads Accepted/Countered</div>
+        <div class="metric-percentage">{{ metrics.loadsAcceptedOrCounteredPercentage }}% of offers</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">{{ metrics.loadsHauled }}</div>
+        <div class="metric-label">Loads Hauled</div>
+        <div class="metric-percentage">{{ metrics.loadsHauledPercentage }}% of offers</div>
+      </div>
+    </div>
+
+    <div class="table-container">
+      <table class="loads-table">
+        <thead>
+          <tr>
+            <th>Load Number</th>
+            <th>Submit Date</th>
+            <th>Pickup Date</th>
+            <th>Price Paid</th>
+            <th>Price / Miles</th>
+            <th>CO2 Tons Saved</th>
+            <th>Tree Equivalent Saved</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let load of loads">
+            <td>{{ load.loadNumber }}</td>
+            <td>{{ load.submitDate | date:'MM/dd/yyyy' }}</td>
+            <td>{{ load.pickupDate | date:'MM/dd/yyyy' }}</td>
+            <td>${{ load.pricePaid | number:'1.2-2' }}</td>
+            <td>${{ load.pricePerMile | number:'1.2-2' }}</td>
+            <td>{{ load.co2TonsSaved | number:'1.2-2' }}</td>
+            <td>{{ load.treeEquivalentSaved | number:'1.0-0' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="summary-section">
+      <h3>Summary</h3>
+      <div class="summary-cards">
+        <div class="summary-card">
+          <div class="summary-label">Total Revenue</div>
+          <div class="summary-value">${{ summary.totalRevenue | number:'1.2-2' }}</div>
+        </div>
+        <div class="summary-card">
+          <div class="summary-label">Total CO2 Tons Saved</div>
+          <div class="summary-value">{{ summary.totalCO2TonsSaved | number:'1.2-2' }}</div>
+        </div>
+        <div class="summary-card">
+          <div class="summary-label">Total Tree Equivalent Saved</div>
+          <div class="summary-value">{{ summary.totalTreeEquivalentSaved | number:'1.0-0' }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

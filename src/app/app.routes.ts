@@ -1,11 +1,7 @@
 import { Routes } from '@angular/router';
-import { UserDetailsComponent } from './user-details/user-details.component';
-import { LoginComponent } from './login/login.component';
-import { RegistrationComponent } from './registration/registration.component';
+import { CarrierReportComponent } from './carrier-report/carrier-report.component';
 
 export const routes: Routes = [
-  { path: 'login', component: LoginComponent },
-  { path: 'registration', component: RegistrationComponent },
-  { path: 'user-details', component: UserDetailsComponent },
-  { path: '', redirectTo: '/login', pathMatch: 'full' }
+  { path: 'carrier-report', component: CarrierReportComponent },
+  { path: '', redirectTo: '/carrier-report', pathMatch: 'full' }
 ];

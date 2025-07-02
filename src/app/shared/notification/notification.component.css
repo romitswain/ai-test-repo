@@ -1,0 +1,116 @@
+.notification-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  min-width: 300px;
+  max-width: 450px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  display: flex;
+  padding: 16px;
+  transform: translateX(120%);
+  transition: transform 0.3s ease-in-out;
+  z-index: 1000;
+  border-left: 4px solid #ccc;
+}
+
+.notification-container.show {
+  transform: translateX(0);
+}
+
+.notification-container.success {
+  border-left-color: var(--primary-green, #4caf50);
+}
+
+.notification-container.error {
+  border-left-color: var(--error-color, #f44336);
+}
+
+.notification-container.warning {
+  border-left-color: var(--primary-yellow, #ffeb3b);
+}
+
+.notification-container.info {
+  border-left-color: #2196f3;
+}
+
+.notification-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  margin-right: 12px;
+  flex-shrink: 0;
+  font-weight: bold;
+}
+
+.success .notification-icon {
+  background-color: var(--primary-green, #4caf50);
+  color: white;
+}
+
+.error .notification-icon {
+  background-color: var(--error-color, #f44336);
+  color: white;
+}
+
+.warning .notification-icon {
+  background-color: var(--primary-yellow, #ffeb3b);
+  color: var(--text-on-yellow, #33691e);
+}
+
+.info .notification-icon {
+  background-color: #2196f3;
+  color: white;
+}
+
+.notification-content {
+  flex: 1;
+}
+
+.notification-title {
+  margin: 0 0 4px 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-primary, #33691e);
+}
+
+.notification-message {
+  margin: 0;
+  font-size: 14px;
+  color: var(--text-secondary, #558b2f);
+}
+
+.notification-close {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: #757575;
+  padding: 0;
+  margin-left: 8px;
+  height: 24px;
+  width: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background-color 0.2s;
+}
+
+.notification-close:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 576px) {
+  .notification-container {
+    top: 10px;
+    right: 10px;
+    left: 10px;
+    min-width: auto;
+    max-width: none;
+  }
+}

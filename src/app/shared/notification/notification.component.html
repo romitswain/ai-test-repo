@@ -1,0 +1,19 @@
+<div class="notification-container" [ngClass]="{
+  'show': isVisible,
+  'success': type === 'success',
+  'error': type === 'error',
+  'warning': type === 'warning',
+  'info': type === 'info'
+}">
+  <div class="notification-icon">
+    <span *ngIf="type === 'success'">✓</span>
+    <span *ngIf="type === 'error'">✕</span>
+    <span *ngIf="type === 'warning'">!</span>
+    <span *ngIf="type === 'info'">i</span>
+  </div>
+  <div class="notification-content">
+    <h4 class="notification-title">{{ title }}</h4>
+    <p class="notification-message">{{ message }}</p>
+  </div>
+  <button class="notification-close" (click)="close()">&times;</button>
+</div>

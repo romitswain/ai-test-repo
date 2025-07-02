@@ -114,6 +114,15 @@ h1 {
   background: #fdd835;
 }
 
+.danger {
+  background: #f44336;
+  color: white;
+}
+
+.danger:hover {
+  background: #d32f2f;
+}
+
 @media (max-width: 768px) {
   .user-card {
     flex-direction: column;

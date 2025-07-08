@@ -5,6 +5,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
+import { HelloWorldComponent } from './hello-world/hello-world.component';
+import { routes } from './app.routes';
 
 @NgModule({
   declarations: [
@@ -12,9 +14,10 @@ import { SharedModule } from './shared/shared.module';
   ],
   imports: [
     BrowserModule,
-    RouterModule,
+    RouterModule.forRoot(routes),
     ReactiveFormsModule,
-    SharedModule
+    SharedModule,
+    HelloWorldComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

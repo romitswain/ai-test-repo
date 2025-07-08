@@ -1,0 +1,15 @@
+<div class="popup-overlay" *ngIf="isOpen" (click)="closeOnOverlayClick ? close() : null">
+  <div class="popup-container" [ngClass]="popupClass" (click)="$event.stopPropagation()">
+    <div class="popup-header">
+      <h3 class="popup-title">{{ title }}</h3>
+      <button *ngIf="showCloseButton" class="popup-close" (click)="close()">&times;</button>
+    </div>
+    <div class="popup-content">
+      <ng-content></ng-content>
+    </div>
+    <div class="popup-footer" *ngIf="showFooter">
+      <button class="popup-button cancel" *ngIf="showCancelButton" (click)="onCancel()">{{ cancelText }}</button>
+      <button class="popup-button confirm" *ngIf="showConfirmButton" (click)="onConfirm()">{{ confirmText }}</button>
+    </div>
+  </div>
+</div>
